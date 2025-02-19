@@ -1,7 +1,5 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
-import { formatTimestamp } from '../utils';
-import { useCounter } from '../hooks';
 
 const MainCounterParagraph = styled.p`
     text-align: center;
@@ -12,14 +10,12 @@ const MainCounterParagraph = styled.p`
 
 /**
  * @param {Object} props
- * @param {Stopwatch} props.stopwatch
+ * @param {string} props.displayTime
  */
-export default function MainCounter({ stopwatch }) {
-    const { totalTime, time } = useCounter(stopwatch);
-    
+export default function MainCounter({ displayTime }) {
     return (
         <MainCounterParagraph>
-            {formatTimestamp(totalTime+time)}
+            {displayTime}
         </MainCounterParagraph>
     )
 }

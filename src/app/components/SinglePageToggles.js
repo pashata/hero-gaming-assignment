@@ -14,12 +14,16 @@ const SinglePageTogglesWrapper = styled.div`
 /**
  * @param {Object} props
  * @param {number} props.stopwatchId
+ * @param {boolean} props.isRunning
  */
-export default function SinglePageToggles({ stopwatchId }) {
+export default function SinglePageToggles({ stopwatchId, isRunning }) {
     return (
         <SinglePageTogglesWrapper>
             <StopwatchButton onClick={() => addLap(stopwatchId)}>Lap</StopwatchButton>
-            <StopwatchButton onClick={() => addToggle(stopwatchId)} theme='danger'>Stop</StopwatchButton>
+            <StopwatchButton
+                onClick={() => addToggle(stopwatchId)}
+                theme={isRunning ? 'danger' : 'success'}
+            >{isRunning ? 'Pause' : 'Resume'}</StopwatchButton>
         </SinglePageTogglesWrapper>
     )
 }

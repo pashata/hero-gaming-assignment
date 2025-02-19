@@ -3,7 +3,7 @@ import './StopwatchButton.css';
 
 /**
  * @param {Object} props
- * @param {'default' | 'danger'} props.theme
+ * @param {'default' | 'danger' | 'success'} props.theme
  * @param {React.ReactNode} props.children
  * @param {() => void} 
  */

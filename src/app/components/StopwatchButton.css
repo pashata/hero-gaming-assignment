@@ -34,3 +34,11 @@
 .stopwatch-button__inner--danger {
     background-color: var(--color-error);
 }
+
+.stopwatch-button--success {
+    border-color: var(--color-success);
+}
+
+.stopwatch-button__inner--success {
+    background-color: var(--color-success);
+}

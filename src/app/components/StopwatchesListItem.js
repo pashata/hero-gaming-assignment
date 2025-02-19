@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { ListItem, StyledLink } from '../components';
-import { formatTimestamp } from '../utils';
 import { useCounter } from '../hooks';
 
 /**
@@ -8,12 +7,12 @@ import { useCounter } from '../hooks';
  * @param {Stopwatch} props.stopwatch
  */
 export default function StopwatchesListItem({ stopwatch }) {
-    const { totalTime, time, isRunning } = useCounter(stopwatch);
+    const { displayTime, isRunning } = useCounter(stopwatch);
     
     return (
         <ListItem isFaded={isRunning}>
             <StyledLink to={`/single/${stopwatch.__id}`}>
-                {formatTimestamp(totalTime+time)}
+                {displayTime}
             </StyledLink>
         </ListItem>
     )
