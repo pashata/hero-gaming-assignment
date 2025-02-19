@@ -26,3 +26,11 @@
 .stopwatch-button__inner--default {
     background-color: var(--color-gray-700);
 }
+
+.stopwatch-button--danger {
+    border-color: var(--color-error);
+}
+
+.stopwatch-button__inner--danger {
+    background-color: var(--color-error);
+}
