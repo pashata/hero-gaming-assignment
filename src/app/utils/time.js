@@ -37,7 +37,6 @@ function calculatePauseTime(start, end, toggles) {
 
 function calculateStopwatchTime(stopwatch) {
   const { started, toggles } = stopwatch;
-  console.log(toggles.length)
   let isRunning = !toggles.length || toggles.length % 2 === 0;
   let lastToggle = toggles.length > 0 ? toggles[toggles.length - 1] : null;
 
