@@ -4,6 +4,7 @@ import { UniversalRouter } from './universal-router'
 import ListPage from './pages/ListPage'
 import SinglePage from './pages/SinglePage'
 import NotFoundPage from './pages/NotFoundPage'
+import './reset.css'
 import './main.css'
 
 export function Root(props) {
