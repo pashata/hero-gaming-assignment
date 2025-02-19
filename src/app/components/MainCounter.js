@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
-import { calculateStopwatchTime, formatTimestamp } from '../utils';
+import { formatTimestamp } from '../utils';
+import { useCounter } from '../hooks';
 
 const MainCounterParagraph = styled.p`
     text-align: center;
@@ -14,20 +15,7 @@ const MainCounterParagraph = styled.p`
  * @param {Stopwatch} props.stopwatch
  */
 export default function MainCounter({ stopwatch }) {
-    const [time, setTime] = React.useState(0);
-    const { isRunning, totalTime } = React.useMemo(() => calculateStopwatchTime(stopwatch), [stopwatch]);
-
-    React.useEffect(() => {
-        let interval;
-        if (isRunning) {
-            console.log(isRunning)
-            const intervalTime = Math.floor(Math.random() * 100);
-            interval = setInterval(() => {
-                setTime(oldTime => oldTime + intervalTime);
-            }, intervalTime);
-        }
-        return () => clearInterval(interval);
-    }, [isRunning])
+    const { totalTime, time } = useCounter(stopwatch);
     
     return (
         <MainCounterParagraph>
