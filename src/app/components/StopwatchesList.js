@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { calculateStopwatchValue } from '../utils';
+import { calculateStopwatchTime } from '../utils';
 import { List, ListItem, StyledLink } from '../components';
 
 /**
@@ -9,11 +9,11 @@ import { List, ListItem, StyledLink } from '../components';
 export default function StopwatchesList({ stopwatches }) {    
     return (
         <List>
-            {stopwatches.map(({ started, toggles, __id }) => {
-                const { totalTimeDisplay, isRunning } = calculateStopwatchValue(started, toggles);
+            {stopwatches.map((stopwatch) => {
+                const { totalTimeDisplay, isRunning } = calculateStopwatchTime(stopwatch);
                 return (
-                    <ListItem isFaded={isRunning} key={__id}>
-                        <StyledLink to={`/single/${__id}`}>
+                    <ListItem isFaded={isRunning} key={stopwatch.__id}>
+                        <StyledLink to={`/single/${stopwatch.__id}`}>
                             {totalTimeDisplay}
                         </StyledLink>
                     </ListItem>
