@@ -1,28 +1,38 @@
+/** @jsxImportSource @emotion/react */
+import styled from '@emotion/styled';
 import * as React from 'react'
 import { useParams } from 'react-router-dom';
-import { fetchStopwatch } from '../services';
 import {
   MainCounter,
   AppWrapper,
   AppMainArea,
-  SinglePageToggles,
-  StopwatchLaps
+  StopwatchLaps,
+  StopwatchButton
 } from '../components';
-import { useCounter } from '../hooks';
+import { useCounter, useSingleStopwatch } from '../hooks';
+
+const TogglesWrapper = styled.div`
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+`;
 
 export default function SinglePage() {
   const { id } = useParams();
-  /** @type {[Stopwatch, React.Dispatch<React.SetStateAction<Stopwatch>>]} */
-  const [data, setData] = React.useState(null);
+  const {
+    data,
+    isLoading,
+    toggleStopWatchHandler,
+    addLapHandler
+  } = useSingleStopwatch(id);
   const { displayTime, isRunning } = useCounter(data);
 
   React.useEffect(() => {
-    fetchStopwatch(id).then((result) => {
-      setData(result);
-    })
-  }, [id]);
+    console.log(data);
+  }, [data])
 
-  if (!data) {
+  if (isLoading) {
     return (
       <AppWrapper>
         Loading...
@@ -34,7 +44,13 @@ export default function SinglePage() {
     <AppWrapper>
       <MainCounter displayTime={displayTime} />
       <AppMainArea>
-        <SinglePageToggles stopwatchId={id} isRunning={isRunning} />
+        <TogglesWrapper>
+          <StopwatchButton onClick={addLapHandler}>Lap</StopwatchButton>
+          <StopwatchButton
+              onClick={toggleStopWatchHandler}
+              theme={isRunning ? 'danger' : 'success'}
+          >{isRunning ? 'Pause' : 'Resume'}</StopwatchButton>
+        </TogglesWrapper>
         <StopwatchLaps stopwatch={data} />
       </AppMainArea>
     </AppWrapper>

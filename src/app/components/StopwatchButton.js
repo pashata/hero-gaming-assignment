@@ -5,7 +5,7 @@ import './StopwatchButton.css';
  * @param {Object} props
  * @param {'default' | 'danger' | 'success'} props.theme
  * @param {React.ReactNode} props.children
- * @param {() => void} 
+ * @param {() => void} onClick
  */
 export default function StopwatchButton({ children, theme = 'default', onClick }) {
     return (
