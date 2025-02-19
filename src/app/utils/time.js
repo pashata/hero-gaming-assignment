@@ -1,8 +1,8 @@
-/**
+/** 
  * @param {number} timestamp
  * @returns {string}
  */
-function formatTimestamp(timestamp) {
+const formatTimestamp = (timestamp) => {
     const date = new Date(timestamp);
     
     const hours = String(date.getUTCHours()).padStart(2, '0');
@@ -11,7 +11,73 @@ function formatTimestamp(timestamp) {
     const milliseconds = String(date.getUTCMilliseconds()).padStart(3, '0');
   
     return `${hours}:${minutes}:${seconds}.${milliseconds}`;
-  }
+}
+
+/** 
+ * @param {number} start
+ * @param {number} end
+ * @returns {object}
+ */
+function calculatePauseTime(start, end, toggles) {
+    let pauseTime = 0;
   
-  export { formatTimestamp };
+    for (let i = 0; i < toggles.length; i += 2) {
+      let pauseStart = toggles[i];
+      let pauseEnd = toggles[i + 1] || end;
+  
+      if (pauseStart < end && pauseEnd > start) {
+        let effectivePauseStart = Math.max(start, pauseStart);
+        let effectivePauseEnd = Math.min(end, pauseEnd);
+        pauseTime += effectivePauseEnd - effectivePauseStart;
+      }
+    }
+  
+    return pauseTime;
+  }
+
+function calculateStopwatchTime(stopwatch) {
+  const { started, toggles } = stopwatch;
+  console.log(toggles.length)
+  let isRunning = !toggles.length || toggles.length % 2 === 0;
+  let lastToggle = toggles.length > 0 ? toggles[toggles.length - 1] : null;
+
+  let endTime = lastToggle || Date.now();
+  let totalElapsed = endTime - started;
+  let pauseTime = calculatePauseTime(started, endTime, toggles);
+  let totalTime = totalElapsed - pauseTime;
+
+  return {
+    totalTime,
+    totalTimeDisplay: formatTimestamp(totalTime),
+    isRunning,
+    lastToggle: isRunning ? lastToggle : null
+  };
+}
+
+function calculateLapTimes(stopwatch) {
+    const { laps, toggles, started } = stopwatch;
+    if (laps.length === 0) return [];
+  
+    let lapTimes = [];
+  
+    for (let i = 0; i < laps.length; i++) {
+      let lapStart = i === 0 ? started : laps[i - 1];
+      let lapEnd = laps[i];
+  
+      let lapElapsed = lapEnd - lapStart;
+      let pauseTime = calculatePauseTime(lapStart, lapEnd, toggles);
+      let lapTime = lapElapsed - pauseTime;
+  
+      lapTimes.push(lapTime);
+    }
+  
+    return lapTimes;
+  }
+
+export {
+    formatTimestamp,
+    calculatePauseTime,
+    calculateLapTimes,
+    calculateStopwatchTime
+};
   
