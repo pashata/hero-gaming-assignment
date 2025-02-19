@@ -33,4 +33,46 @@ async function fetchStopwatch(id) {
     }
 }
 
-export { fetchStopwatches, fetchStopwatch }
+/**
+ * @param {number} page
+ * @returns {Promise<Stopwatch>}
+ */
+async function addLap(id) {
+    try {
+        /** @type {Promise<StopwatchResponse>} */
+        const response = await apiRequest(
+            API_ENDPOINTS.addLap(id),
+            'POST',
+            {
+                time: Date.now() 
+            }
+        );
+        
+        return response.result;
+    } catch (error) {
+        console.error('Error adding lap:', error);
+    }
+}
+
+/**
+ * @param {number} page
+ * @returns {Promise<Stopwatch>}
+ */
+async function addToggle(id) {
+    try {
+        /** @type {Promise<StopwatchResponse>} */
+        const response = await apiRequest(
+            API_ENDPOINTS.addToggle(id),
+            'POST',
+            {
+                time: Date.now() 
+            }
+        );
+        
+        return response.result;
+    } catch (error) {
+        console.error('Error adding lap:', error);
+    }
+}
+
+export { fetchStopwatches, fetchStopwatch, addLap, addToggle }

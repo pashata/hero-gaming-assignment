@@ -6,6 +6,6 @@ export const API_ENDPOINTS = {
     getStopwatch: (id) => `${API_BASE}/stopwatches/${id}`,
     resetStopwatch: (id) => `${API_BASE}/stopwatches/${id}`,
     deleteStopwatch: (id) => `${API_BASE}/stopwatches/${id}`,
-    toggleStopwatch: (id) => `${API_BASE}/stopwatches/${id}/toggle`,
-    lapStopwatch: (id) => `${API_BASE}/stopwatches/${id}/lap`,
+    addToggle: (id) => `${API_BASE}/stopwatches/${id}/toggle`,
+    addLap: (id) => `${API_BASE}/stopwatches/${id}/lap`,
 }

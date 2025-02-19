@@ -2,6 +2,7 @@
 import styled from '@emotion/styled';
 import * as React from 'react';
 import { StopwatchButton } from '../components';
+import { addLap, addToggle } from '../services';
 
 const SinglePageTogglesWrapper = styled.div`
     display: flex;
@@ -10,11 +11,15 @@ const SinglePageTogglesWrapper = styled.div`
     justify-content: space-between;
 `;
 
-export default function SinglePageToggles() {
+/**
+ * @param {Object} props
+ * @param {number} props.stopwatchId
+ */
+export default function SinglePageToggles({ stopwatchId }) {
     return (
         <SinglePageTogglesWrapper>
-            <StopwatchButton>Lap</StopwatchButton>
-            <StopwatchButton theme='danger'>Stop</StopwatchButton>
+            <StopwatchButton onClick={() => addLap(stopwatchId)}>Lap</StopwatchButton>
+            <StopwatchButton onClick={() => addToggle(stopwatchId)} theme='danger'>Stop</StopwatchButton>
         </SinglePageTogglesWrapper>
     )
 }

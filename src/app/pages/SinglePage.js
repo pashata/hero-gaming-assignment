@@ -32,7 +32,7 @@ export default function SinglePage() {
     <AppWrapper>
       <MainCounter stopwatch={data} />
       <AppMainArea>
-        <SinglePageToggles />
+        <SinglePageToggles stopwatchId={id} />
         <StopwatchLaps stopwatch={data} />
       </AppMainArea>
     </AppWrapper>
