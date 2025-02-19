@@ -38,9 +38,8 @@ function calculatePauseTime(start, end, toggles) {
 function calculateStopwatchTime(stopwatch) {
   const { started, toggles } = stopwatch;
   let isRunning = !toggles.length || toggles.length % 2 === 0;
-  let lastToggle = toggles.length > 0 ? toggles[toggles.length - 1] : null;
 
-  let endTime = lastToggle || Date.now();
+  let endTime = isRunning ? Date.now() : toggles[toggles.length - 1];
   let totalElapsed = endTime - started;
   let pauseTime = calculatePauseTime(started, endTime, toggles);
   let totalTime = totalElapsed - pauseTime;
@@ -48,8 +47,7 @@ function calculateStopwatchTime(stopwatch) {
   return {
     totalTime,
     totalTimeDisplay: formatTimestamp(totalTime),
-    isRunning,
-    lastToggle: isRunning ? lastToggle : null
+    isRunning
   };
 }
 
