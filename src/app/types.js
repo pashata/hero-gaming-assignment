@@ -1,3 +1,5 @@
+/* * * * Objects * * * */
+
 /**
  * @typedef {Object} Stopwatch
  * @property {number} __id - Unique ID of the stopwatch.
@@ -12,8 +14,16 @@
  * @property {number} totalPages - The total number of pages.
  */
 
+/* * * * API * * * */
+
 /**
  * @typedef {Object} StopwatchesResponse
  * @property {Pagination} meta - Pagination metadata.
  * @property {Stopwatch[]} result - List of stopwatches.
+ */
+
+/**
+ * @typedef {Object} StopwatchResponse
+ * @property {Object} meta - Pagination metadata.
+ * @property {Stopwatch} result - List of stopwatches.
  */

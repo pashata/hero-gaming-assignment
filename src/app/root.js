@@ -12,8 +12,8 @@ export function Root(props) {
     <UniversalRouter location={props.location}>
       <Switch>
         <Route exact path="/" component={ListPage} />
-        <Route exact path="/single" component={SinglePage} />
-        <Route component={NotFoundPage} />
+        <Route path="/single/:id" component={SinglePage} />
+        <Route component={ NotFoundPage} />
       </Switch>
     </UniversalRouter>
   )
