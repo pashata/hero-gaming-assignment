@@ -1,6 +1,13 @@
 import * as React from 'react';
+import styled from '@emotion/styled';
 import { calculateStopwatchValue, formatTimestamp } from '../utils';
-import './MainCounter.css';
+
+const MainCounterParagraph = styled.p`
+    text-align: center;
+    font-size: var(--font-size-extra-large);
+    font-weight: var(--font-weight-light);
+    padding: var(--spacing-3) 0;
+`;
 
 /**
  * @param {Object} props
@@ -15,8 +22,8 @@ export default function MainCounter({ stopwatch }) {
     } = calculateStopwatchValue(started, toggles)
     
     return (
-        <p className='main-counter'>
+        <MainCounterParagraph>
             {formatTimestamp(totalTime)}
-        </p>
+        </MainCounterParagraph>
     )
 }
