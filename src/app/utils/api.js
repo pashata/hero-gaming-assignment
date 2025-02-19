@@ -1,11 +1,10 @@
 /**
- * Makes an API request using Fetch.
  * @template T
- * @param {string} url - The API endpoint URL.
- * @param {'GET' | 'POST' | 'PUT' | 'DELETE'} [method='GET'] - The HTTP method.
- * @param {Object | null} [data=null] - The request body data.
- * @returns {Promise<T>} - Returns a Promise that resolves to the API response.
- * @throws {Error} - Throws an error if the request fails.
+ * @param {string} url
+ * @param {'GET' | 'POST' | 'PUT' | 'DELETE'} [method='GET']
+ * @param {Object | null} [data=null]
+ * @returns {Promise<T>}
+ * @throws {Error}
  */
 export async function apiRequest(url, method = 'GET', data = null) {
   try {

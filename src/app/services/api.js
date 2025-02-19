@@ -2,9 +2,8 @@ import { apiRequest } from '../utils';
 import { API_ENDPOINTS } from '../constants';
 
 /**
- * Fetches stopwatches from the API.
- * @param {number} page - Page number to fetch.
- * @returns {Promise<StopwatchesResponse>} - The API response.
+ * @param {number} page
+ * @returns {Promise<StopwatchesResponse>}
  */
 async function fetchStopwatches(page = 1) {
     try {
@@ -19,4 +18,19 @@ async function fetchStopwatches(page = 1) {
     }
 }
 
-export { fetchStopwatches }
+/**
+ * @param {number} page
+ * @returns {Promise<Stopwatch>}
+ */
+async function fetchStopwatch(id) {
+    try {
+        /** @type {Promise<StopwatchResponse>} */
+        const response = await apiRequest(API_ENDPOINTS.getStopwatch(id));
+        
+        return response.result;
+    } catch (error) {
+        console.error('Error fetching stopwatch:', error);
+    }
+}
+
+export { fetchStopwatches, fetchStopwatch }
