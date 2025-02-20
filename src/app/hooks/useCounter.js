@@ -24,14 +24,15 @@ function useCounter(stopwatch) {
             interval = setInterval(() => {
                 setTime(oldTime => oldTime + intervalTime);
             }, intervalTime);
+        } else {
+            setTime(0);
         }
 
         return () => clearInterval(interval);
     }, [isRunning]);
 
     return {
-        time,
-        totalTime,
+        time: totalTime+time,
         displayTime: formatTimestamp(totalTime+time),
         isRunning
     };

@@ -9,7 +9,7 @@ import {
   StopwatchLaps,
   StopwatchButton
 } from '../components';
-import { useCounter, useSingleStopwatch } from '../hooks';
+import { useSingleStopwatch } from '../hooks';
 
 const TogglesWrapper = styled.div`
     display: flex;
@@ -23,36 +23,27 @@ export default function SinglePage() {
   const {
     data,
     isLoading,
+    displayTime,
+    isRunning,
     toggleStopWatchHandler,
     addLapHandler
   } = useSingleStopwatch(id);
-  const { displayTime, isRunning } = useCounter(data);
-
-  React.useEffect(() => {
-    console.log(data);
-  }, [data])
-
-  if (isLoading) {
-    return (
-      <AppWrapper>
-        Loading...
-      </AppWrapper>
-    )
-  }
 
   return (
     <AppWrapper>
       <MainCounter displayTime={displayTime} />
-      <AppMainArea>
-        <TogglesWrapper>
-          <StopwatchButton onClick={addLapHandler}>Lap</StopwatchButton>
-          <StopwatchButton
-              onClick={toggleStopWatchHandler}
-              theme={isRunning ? 'danger' : 'success'}
-          >{isRunning ? 'Pause' : 'Resume'}</StopwatchButton>
-        </TogglesWrapper>
-        <StopwatchLaps stopwatch={data} />
-      </AppMainArea>
+      {!isLoading && (
+        <AppMainArea>
+          <TogglesWrapper>
+            <StopwatchButton onClick={addLapHandler}>Lap</StopwatchButton>
+            <StopwatchButton
+                onClick={toggleStopWatchHandler}
+                theme={isRunning ? 'danger' : 'success'}
+            >{isRunning ? 'Pause' : 'Resume'}</StopwatchButton>
+          </TogglesWrapper>
+          <StopwatchLaps stopwatch={data} />
+        </AppMainArea>
+      )}
     </AppWrapper>
   )
 }

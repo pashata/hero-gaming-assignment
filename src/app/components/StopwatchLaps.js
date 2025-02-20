@@ -6,15 +6,16 @@ import { List, ListItem } from './styled';
  * @param {Object} props
  * @param {Stopwatch} props.stopwatch
  */
-export default function StopwatchLaps({ stopwatch }) {
+const StopwatchLaps = React.memo(({ stopwatch }) => {
     const lapTimes = calculateLapTimes(stopwatch);
+
     return (
         <List>
             {lapTimes.map((lap) => (
-                <ListItem key={lap}>
-                    {formatTimestamp(lap)}
-                </ListItem>
+                <ListItem key={lap}>{formatTimestamp(lap)}</ListItem>
             ))}
         </List>
-    )
-}
+    );
+});
+
+export default StopwatchLaps;
