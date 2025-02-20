@@ -11,7 +11,7 @@ const ListItem = styled.li`
   color: ${({ isFaded }) => (isFaded ? 'var(--color-gray-700)' : 'var(--color-light)')};
   padding: var(--spacing-1) 0;
 
-  &:first-child {
+  &:first-of-type {
     border-top: 1px solid var(--color-gray-700);
   }
 `;

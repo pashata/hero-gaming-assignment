@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ListItem, StyledLink } from '../components';
+import { ListItem, StyledLink } from './styled';
 import { useCounter } from '../hooks';
 
 /**
