@@ -17,31 +17,35 @@ function useSingleStopwatch(id) {
     }, [id])
 
     const addLapHandler = () => {
-      setIsLoading(true);
-      addLap(id).then(() => {
-        setIsLoading(false);
-      });
-      setData(oldData => setData({
-        ...oldData,
-        laps: [
-          ...oldData.laps,
-          time
-        ]
-      }))
+      if (!isLoading) {
+        setIsLoading(true);
+        addLap(id).then(() => {
+          setIsLoading(false);
+        });
+        setData(oldData => setData({
+          ...oldData,
+          laps: [
+            ...oldData.laps,
+            time
+          ]
+        }))
+      }
     }
 
     const toggleStopWatchHandler = (timestamp) => {
-      setIsLoading(true);
-      addToggle(id).finally(() => {
-        setIsLoading(false);
-      });
-      setData(oldData => setData({
-        ...oldData,
-        toggles: [
-          ...oldData.toggles,
-          data.started + time
-        ]
-      }))
+      if (!isLoading) {
+        setIsLoading(true);
+        addToggle(id).finally(() => {
+          setIsLoading(false);
+        });
+        setData(oldData => setData({
+          ...oldData,
+          toggles: [
+            ...oldData.toggles,
+            data.started + time
+          ]
+        }))
+      }
     }
 
     useEffect(fetchData, [id]);

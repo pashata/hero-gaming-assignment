@@ -32,15 +32,15 @@ export default function SinglePage() {
   return (
     <AppWrapper>
       <MainCounter displayTime={displayTime} />
+      <TogglesWrapper>
+        <StopwatchButton onClick={addLapHandler}>Lap</StopwatchButton>
+        <StopwatchButton
+            onClick={toggleStopWatchHandler}
+            theme={isRunning ? 'danger' : 'success'}
+        >{isRunning ? 'Pause' : 'Resume'}</StopwatchButton>
+      </TogglesWrapper>
       {!isLoading && (
         <AppMainArea>
-          <TogglesWrapper>
-            <StopwatchButton onClick={addLapHandler}>Lap</StopwatchButton>
-            <StopwatchButton
-                onClick={toggleStopWatchHandler}
-                theme={isRunning ? 'danger' : 'success'}
-            >{isRunning ? 'Pause' : 'Resume'}</StopwatchButton>
-          </TogglesWrapper>
           <StopwatchLaps stopwatch={data} />
         </AppMainArea>
       )}
