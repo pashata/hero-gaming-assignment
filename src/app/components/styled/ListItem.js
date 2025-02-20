@@ -5,7 +5,8 @@ import styled from '@emotion/styled';
  * @param {boolean} [props.isFaded=false]
  */
 const ListItem = styled.li`
-  display: block;
+  display: flex;
+  align-items: center;
   border-bottom: 1px solid var(--color-gray-700);
   width: 100%;
   color: ${({ isFaded }) => (isFaded ? 'var(--color-gray-700)' : 'var(--color-light)')};

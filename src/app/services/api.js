@@ -19,7 +19,7 @@ async function fetchStopwatches(page = 1) {
 }
 
 /**
- * @param {number} page
+ * @param {number} id
  * @returns {Promise<Stopwatch>}
  */
 async function fetchStopwatch(id) {
@@ -34,7 +34,7 @@ async function fetchStopwatch(id) {
 }
 
 /**
- * @param {number} page
+ * @param {number} id
  * @returns {Promise<Stopwatch>}
  */
 async function addLap(id) {
@@ -55,7 +55,7 @@ async function addLap(id) {
 }
 
 /**
- * @param {number} page
+ * @param {number} id
  * @returns {Promise<Stopwatch>}
  */
 async function addToggle(id) {
@@ -75,4 +75,48 @@ async function addToggle(id) {
     }
 }
 
-export { fetchStopwatches, fetchStopwatch, addLap, addToggle }
+/**
+ * @returns {Promise<Stopwatch>}
+ */
+async function createStopwatch() {
+    try {
+        /** @type {Promise<StopwatchResponse>} */
+        const response = await apiRequest(
+            API_ENDPOINTS.createStopwatch,
+            'POST',
+            {
+                started: Date.now() 
+            }
+        );
+        
+        return response;
+    } catch (error) {
+        Promise.reject(`Error adding stopwatch: ${error.message}`)
+    }
+}
+
+/**
+ * @param {number} id
+ * @returns {boolean}
+ */
+async function deleteStopwatch(id) {
+    try {
+        const response = await apiRequest(
+            API_ENDPOINTS.deleteStopwatch(id),
+            'DELETE'
+        );
+        
+        return response;
+    } catch (error) {
+        Promise.reject('Error deleting stopwatch')
+    }
+}
+
+export {
+    fetchStopwatches,
+    fetchStopwatch,
+    addLap,
+    addToggle,
+    createStopwatch,
+    deleteStopwatch
+}

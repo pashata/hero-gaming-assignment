@@ -33,11 +33,13 @@ export default function SinglePage() {
     <AppWrapper>
       <MainCounter displayTime={displayTime} />
       <TogglesWrapper>
-        <StopwatchButton onClick={addLapHandler}>Lap</StopwatchButton>
         <StopwatchButton
             onClick={toggleStopWatchHandler}
             theme={isRunning ? 'danger' : 'success'}
         >{isRunning ? 'Pause' : 'Resume'}</StopwatchButton>
+        {isRunning && (
+          <StopwatchButton onClick={addLapHandler}>Lap</StopwatchButton>
+        )}
       </TogglesWrapper>
       {!isLoading && (
         <AppMainArea>

@@ -1,11 +1,25 @@
 import * as React from 'react'
-import { fetchStopwatches } from '../services';
+import { fetchStopwatches, createStopwatch } from '../services';
 import { StopwatchesList, StopwatchButton, AppWrapper, AppMainArea } from '../components';
+import { useHistory } from "react-router-dom";
 
 export default function ListPage() {
+    const history = useHistory();
     const [currentPage, setCurrentPage] = React.useState(1);
     const [currentStopwatches, setCurrentStopwatches] = React.useState([]);
     const [hasMorePages, setHasMorePages] = React.useState(false);
+
+    const loadNewStopwatches = () => {
+        setCurrentPage(oldCurrentPage => oldCurrentPage + 1);
+    };
+
+    const createNewStopwatchHandler = () => {
+        createStopwatch().then(({ __id }) => {
+            history.push(`/single/${__id}`);
+        }).catch((error) => {
+            console.log('error', error)
+        })
+    }
 
     React.useEffect(() => {
         fetchStopwatches(currentPage)
@@ -20,13 +34,9 @@ export default function ListPage() {
             });
     }, [currentPage]);
 
-    const loadNewStopwatches = () => {
-        setCurrentPage(oldCurrentPage => oldCurrentPage + 1);
-    };
-
     return (
         <AppWrapper>
-            <StopwatchButton>New</StopwatchButton>
+            <StopwatchButton onClick={createNewStopwatchHandler}>New</StopwatchButton>
             <AppMainArea>
                 <StopwatchesList stopwatches={currentStopwatches} />
             </AppMainArea>

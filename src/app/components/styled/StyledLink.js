@@ -8,7 +8,9 @@ import { Link } from 'react-router-dom';
  * @param {boolean} [props.isFaded=false] - Whether the link should be faded.
  */
 const StyledLink = styled(Link)`
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-1);
     color: inherit;
     text-decoration: none;
     width: 100%;
