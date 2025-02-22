@@ -12,7 +12,7 @@ import {
   StyledLink,
   StopwatchLoader
 } from '../components';
-import { useSingleStopwatch } from '../hooks';
+import { useSingleStopwatch, useCounter } from '../hooks';
 
 const TogglesWrapper = styled.div`
     display: flex;
@@ -26,11 +26,10 @@ export default function SinglePage() {
   const {
     data,
     isLoading,
-    displayTime,
-    isRunning,
     toggleStopWatchHandler,
     addLapHandler
   } = useSingleStopwatch(id);
+  const { displayTime, isRunning } = useCounter(data);
 
   return (
     <AppWrapper>
