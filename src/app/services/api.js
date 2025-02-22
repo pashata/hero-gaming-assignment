@@ -35,17 +35,16 @@ async function fetchStopwatch(id) {
 
 /**
  * @param {number} id
+ * @param {number} time
  * @returns {Promise<Stopwatch>}
  */
-async function addLap(id) {
+async function addLap(id, time) {
     try {
         /** @type {Promise<StopwatchResponse>} */
         const response = await apiRequest(
             API_ENDPOINTS.addLap(id),
             'POST',
-            {
-                time: Date.now() 
-            }
+            { time }
         );
         
         return response.result;
@@ -56,17 +55,16 @@ async function addLap(id) {
 
 /**
  * @param {number} id
+ * @param {number} time
  * @returns {Promise<Stopwatch>}
  */
-async function addToggle(id) {
+async function addToggle(id, time) {
     try {
         /** @type {Promise<StopwatchResponse>} */
         const response = await apiRequest(
             API_ENDPOINTS.addToggle(id),
             'POST',
-            {
-                time: Date.now() 
-            }
+            { time }
         );
         
         return response.result;

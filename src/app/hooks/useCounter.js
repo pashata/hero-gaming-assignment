@@ -20,7 +20,7 @@ function useCounter(stopwatch) {
     useEffect(() => {
         let interval;
         if (isRunning) {
-            const intervalTime = Math.floor(Math.random() * 100);
+            const intervalTime = Math.floor(Math.random() * 10);
             interval = setInterval(() => {
                 setTime(oldTime => oldTime + intervalTime);
             }, intervalTime);

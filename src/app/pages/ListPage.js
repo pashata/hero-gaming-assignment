@@ -32,6 +32,9 @@ export default function ListPage() {
                 currentPage.current = meta.currentPage;
                 setHasMorePages(meta.currentPage < meta.totalPages);
             })
+            .catch((error) => {
+                console.log('Error happened', error)
+            })
             .finally(() => {
                 setIsLoading(false);
             });
