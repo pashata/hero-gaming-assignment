@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { fetchStopwatches, createStopwatch } from '../services';
+import { createStopwatch } from '../services';
 import {
     StopwatchesList,
     StopwatchButton,
@@ -7,14 +7,17 @@ import {
     AppMainArea,
     StopwatchLoader
 } from '../components';
+import { useListPageContext } from '../hooks';
+import { ListPageProvider } from '../context';
 import { useHistory } from "react-router-dom";
 
-export default function ListPage() {
+function ListPage() {
     const history = useHistory();
-    const currentPage = React.useRef(0);
-    const [isLoading, setIsLoading] = React.useState(false);
-    const [currentStopwatches, setCurrentStopwatches] = React.useState([]);
-    const [hasMorePages, setHasMorePages] = React.useState(false);
+    const {
+        isLoading,
+        hasMorePages,
+        fetchHandler
+    } = useListPageContext();
 
     const createNewStopwatchHandler = () => {
         createStopwatch().then(({ __id }) => {
@@ -23,24 +26,6 @@ export default function ListPage() {
             console.log('error', error)
         })
     }
-
-    const fetchHandler = () => {
-        setIsLoading(true);
-        fetchStopwatches(currentPage.current + 1)
-            .then(({ meta, result }) => {
-                setCurrentStopwatches(result);
-                currentPage.current = meta.currentPage;
-                setHasMorePages(meta.currentPage < meta.totalPages);
-            })
-            .catch((error) => {
-                console.log('Error happened', error)
-            })
-            .finally(() => {
-                setIsLoading(false);
-            });
-    }
-
-    React.useEffect(fetchHandler, []);
 
     if (isLoading) {
         return (
@@ -54,7 +39,7 @@ export default function ListPage() {
         <AppWrapper>
             <StopwatchButton onClick={createNewStopwatchHandler}>New</StopwatchButton>
             <AppMainArea>
-                <StopwatchesList stopwatches={currentStopwatches} />
+                <StopwatchesList />
             </AppMainArea>
             {hasMorePages && (
                 <StopwatchButton onClick={fetchHandler}>
@@ -62,5 +47,13 @@ export default function ListPage() {
                 </StopwatchButton>
             )}
         </AppWrapper>
+    )
+}
+
+export default function ListPageWrapped() {
+    return (
+        <ListPageProvider>
+            <ListPage />
+        </ListPageProvider>
     )
 }

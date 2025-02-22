@@ -1,7 +1,8 @@
-import * as React from 'react'
-import { FiTrash2, FiCheck, FiX } from "react-icons/fi";
+import React, { useCallback } from 'react'
+import { FiTrash2, FiCheck, FiX, FiLoader } from "react-icons/fi";
 import { deleteStopwatch } from '../services';
 import { ButtonIcon } from '../components';
+import { useListPageContext } from '../hooks';
 
 /**
  * @param {Object} props
@@ -9,14 +10,30 @@ import { ButtonIcon } from '../components';
  */
 export default function DeleteStopwatch({ id }) {
     const [isConfirm, setIsConfirm] = React.useState(false);
+    const [isDeleting, setIsDeleting] = React.useState(false);
+    const { fetchHandler } = useListPageContext();
 
     const toggleConfirm = () => {
         setIsConfirm(oldState => !oldState)
     };
 
-    const deleteHandler = () => {
-        deleteStopwatch(id);
-    };
+    const deleteHandler = useCallback(() => {
+        setIsDeleting(true);
+        deleteStopwatch(id)
+            .then(() => {
+                fetchHandler(true);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+            .finally(() => {
+                setIsDeleting(false);
+            });
+    });
+
+    if (isDeleting) {
+        return <FiLoader />
+    }
 
     return (
         <>

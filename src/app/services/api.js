@@ -95,7 +95,7 @@ async function createStopwatch() {
 
 /**
  * @param {number} id
- * @returns {boolean}
+ * @returns {Promise<boolean>}
  */
 async function deleteStopwatch(id) {
     try {

@@ -1,12 +1,11 @@
 import * as React from 'react';
 import { List } from '../components';
 import StopwatchesListItem from './StopwatchesListItem';
+import { useListPageContext } from '../hooks';
 
-/**
- * @param {Object} props
- * @param {Stopwatch[]} props.stopwatches
- */
-export default function StopwatchesList({ stopwatches }) {    
+export default function StopwatchesList() {
+    const { stopwatches } = useListPageContext();
+ 
     return (
         <List>
             {stopwatches.map((stopwatch) => (
