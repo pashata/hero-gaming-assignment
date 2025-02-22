@@ -1,31 +1,21 @@
 import * as React from 'react'
-import { createStopwatch } from '../services';
 import {
     StopwatchesList,
     StopwatchButton,
     AppWrapper,
     AppMainArea,
-    StopwatchLoader
+    StopwatchLoader,
+    CreateNewStopwatch
 } from '../components';
 import { useListPageContext } from '../hooks';
 import { ListPageProvider } from '../context';
-import { useHistory } from "react-router-dom";
 
 function ListPage() {
-    const history = useHistory();
     const {
         isLoading,
         hasMorePages,
         fetchHandler
     } = useListPageContext();
-
-    const createNewStopwatchHandler = () => {
-        createStopwatch().then(({ __id }) => {
-            history.push(`/single/${__id}`);
-        }).catch((error) => {
-            console.log('error', error)
-        })
-    }
 
     if (isLoading) {
         return (
@@ -37,7 +27,7 @@ function ListPage() {
 
     return (
         <AppWrapper>
-            <StopwatchButton onClick={createNewStopwatchHandler}>New</StopwatchButton>
+            <CreateNewStopwatch />
             <AppMainArea>
                 <StopwatchesList />
             </AppMainArea>
