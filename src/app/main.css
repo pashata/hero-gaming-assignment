@@ -11,8 +11,36 @@
     --color-gray-700: #495057;
     --color-gray-800: #343a40;
     --color-dark: #212529;
+
+    --spacing-1: 0.5em;
+    --spacing-2: 1em;
+    --spacing-3: 1.5em;
+    --spacing-4: 2em;
+
+    --page-gap: 1em;
+
+    --font-size-normal: 1em;
+    --font-size-large: 1.5em;
+    --font-size-extra-large: 3em;
+    --font-weight-normal: 400;
+    --font-weight-light: 200;
+
+    --button-size: 120px;
+    --button-gap: var(--spacing-1);
+  }
+
+  html,
+  body,
+  [data-app-root] {
+    height: 100%;
   }
 
   body {
     background-color: var(--color-dark);
+    color: var(--color-light);
+    font-family: "Roboto", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
   }
