@@ -1,5 +1,6 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
+import { formatTimestamp } from '../utils';
 
 const MainCounterParagraph = styled.p`
     text-align: center;
@@ -10,12 +11,12 @@ const MainCounterParagraph = styled.p`
 
 /**
  * @param {Object} props
- * @param {string} props.displayTime
+ * @param {number} props.timestamp
  */
-export default function MainCounter({ displayTime }) {
+export default function MainCounter({ timestamp }) {
     return (
         <MainCounterParagraph>
-            {displayTime}
+            {formatTimestamp(timestamp)}
         </MainCounterParagraph>
     )
 }

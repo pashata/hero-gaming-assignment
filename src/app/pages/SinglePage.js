@@ -29,7 +29,7 @@ export default function SinglePage() {
     toggleStopWatchHandler,
     addLapHandler
   } = useSingleStopwatch(id);
-  const { displayTime, isRunning } = useCounter(data);
+  const { time, isRunning } = useCounter(data);
 
   return (
     <AppWrapper>
@@ -37,7 +37,7 @@ export default function SinglePage() {
         <FiArrowLeft />
         Back to the list
       </StyledLink>
-      <MainCounter displayTime={displayTime} />
+      <MainCounter timestamp={time} />
       {!isLoading && (
         <>
           <TogglesWrapper>

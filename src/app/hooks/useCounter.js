@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
-import { calculateStopwatchTime, formatTimestamp } from '../utils';
+import { calculateStopwatchTime } from '../utils';
 
 function useCounter(stopwatch) {
     const [time, setTime] = useState(0);    
@@ -20,8 +20,8 @@ function useCounter(stopwatch) {
         }
     
         const interval = setInterval(() => {
-            const { toggles } = stopwatch;
-            setTime(Date.now() - toggles[toggles.length - 1]);
+            const { toggles, started } = stopwatch;
+            setTime(Date.now() - (toggles[toggles.length - 1] ?? started));
         }, 14);
     
         return () => clearInterval(interval);
@@ -29,7 +29,6 @@ function useCounter(stopwatch) {
 
     return {
         time: totalTime+time,
-        displayTime: formatTimestamp(totalTime+time),
         isRunning
     };
 }
