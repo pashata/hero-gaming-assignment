@@ -3,7 +3,7 @@
  * @param {string} url
  * @param {'GET' | 'POST' | 'PUT' | 'DELETE'} [method='GET']
  * @param {Object | null} [data=null]
- * @returns {Promise<T>}
+ * @returns {Promise<T | void>}
  * @throws {Error}
  */
 export async function apiRequest(url, method = 'GET', data = null) {
@@ -25,10 +25,13 @@ export async function apiRequest(url, method = 'GET', data = null) {
       throw new Error(`API Error: ${response.status} ${response.statusText}`);
     }
 
-    /** @type {T} */
-    return await response.json();
+    const contentType = response.headers.get("content-type");
+    if (contentType && contentType.includes("application/json")) {
+      return await response.json();
+    }
+
+    return;
   } catch (error) {
-    console.error('API Request Failed:', error.message);
     throw error;
   }
 }
