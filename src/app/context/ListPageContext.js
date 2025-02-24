@@ -1,4 +1,5 @@
 import React, { createContext, useState, useRef, useEffect } from 'react';
+import { toast } from 'react-toast';
 import { fetchStopwatches } from '../services';
 
 const ListPageContext = createContext();
@@ -21,7 +22,8 @@ const ListPageProvider = ({ children }) => {
                 setHasMorePages(meta.currentPage < meta.totalPages);
             })
             .catch((error) => {
-                console.error('Error happened', error);
+                toast.error(error);
+                fetchHandler(true);
             })
             .finally(() => {
                 setIsLoading(false);

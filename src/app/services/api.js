@@ -14,7 +14,7 @@ async function fetchStopwatches(page = 1) {
         
         return response;
     } catch (error) {
-        console.error('Error fetching stopwatches:', error);
+        return Promise.reject(`Error fetching stopwatches: ${error.message}`);
     }
 }
 
@@ -29,7 +29,7 @@ async function fetchStopwatch(id) {
         
         return response.result;
     } catch (error) {
-        console.error('Error fetching stopwatch:', error);
+        return Promise.reject(`Error fetching stopwatch: ${error.message}`);
     }
 }
 
@@ -49,7 +49,7 @@ async function addLap(id, time) {
         
         return response.result;
     } catch (error) {
-        console.error('Error adding lap:', error);
+        return Promise.reject(`'Error adding lap: ${error.message}`);
     }
 }
 
@@ -69,7 +69,7 @@ async function addToggle(id, time) {
         
         return response.result;
     } catch (error) {
-        console.error('Error adding lap:', error);
+        return Promise.reject(`Error while toggling: ${error.message}`)
     }
 }
 
@@ -89,7 +89,7 @@ async function createStopwatch() {
         
         return response;
     } catch (error) {
-        Promise.reject(`Error adding stopwatch: ${error.message}`)
+        return Promise.reject(`Error adding stopwatch: ${error.message}`)
     }
 }
 
@@ -106,7 +106,7 @@ async function deleteStopwatch(id) {
         
         return response;
     } catch (error) {
-        Promise.reject('Error deleting stopwatch')
+        return Promise.reject('Error deleting stopwatch')
     }
 }
 

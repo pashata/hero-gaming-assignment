@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { toast } from 'react-toast';
 import { fetchStopwatch, addLap, addToggle } from '../services';
 
 function useSingleStopwatch(id) {
@@ -12,6 +13,10 @@ function useSingleStopwatch(id) {
       fetchStopwatch(id)
         .then((result) => {
           setData(result);
+        })
+        .catch((error) => {
+          toast.error(error);
+          fetchData();
         })
         .finally(() => {
           setIsLoading(false);
@@ -43,6 +48,7 @@ function useSingleStopwatch(id) {
 
         addLap(id, timestamp)
           .catch(() => {
+            toast.error(error);
             updateData('laps', timestamp, true);
           })
           .finally(() => {
@@ -59,7 +65,8 @@ function useSingleStopwatch(id) {
         updateData('toggles', timestamp);
 
         addToggle(id, Date.now())
-          .catch(() => {
+          .catch((error) => {
+            toast.error(error);
             updateData('toggles', timestamp, true);
           })
           .finally(() => {

@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { toast } from 'react-toast';
 import { createStopwatch } from '../services';
 import { StopwatchButton } from '../components';
 import { useHistory } from "react-router-dom";
@@ -15,7 +16,7 @@ export default function CreateNewStopwatch() {
             createStopwatch().then(({ __id }) => {
                 history.push(`/single/${__id}`);
             }).catch((error) => {
-                console.log('error', error)
+                toast.error(error);
             }).finally(() => {
                 setIsCreating(false);
             })

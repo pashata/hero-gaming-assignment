@@ -1,4 +1,5 @@
-import React, { useCallback } from 'react'
+import React, { useCallback } from 'react';
+import { toast } from 'react-toast';
 import { FiTrash2, FiCheck, FiX, FiLoader } from "react-icons/fi";
 import { deleteStopwatch } from '../services';
 import { ButtonIcon } from '../components';
@@ -24,7 +25,7 @@ export default function DeleteStopwatch({ id }) {
                 fetchHandler(true);
             })
             .catch((error) => {
-                console.log(error);
+                toast.error(error);
             })
             .finally(() => {
                 setIsDeleting(false);

@@ -20,7 +20,8 @@
     "react-icons": "^5.5.0",
     "react-is": "^16.13.1",
     "react-router-dom": "5.1.2",
-    "react-ssr-prepass": "1.2.0"
+    "react-ssr-prepass": "1.2.0",
+    "react-toast": "^1.0.3"
   },
   "devDependencies": {
     "razzle": "3.0.0"
