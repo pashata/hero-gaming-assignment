@@ -2,32 +2,28 @@ import { useState, useEffect, useMemo } from "react";
 import { calculateStopwatchTime, formatTimestamp } from '../utils';
 
 function useCounter(stopwatch) {
-    const [time, setTime] = useState(0);
+    const [time, setTime] = useState(0);    
 
     const { isRunning, totalTime } = useMemo(
-        () => {
-            if (stopwatch) {
-                return calculateStopwatchTime(stopwatch);
-            }
-            return {
-                isRunning: false,
-                totalTime: 0
-            }
-        },
+        () => (
+            stopwatch
+                ? calculateStopwatchTime(stopwatch)
+                : { isRunning: false, totalTime: 0 }
+        ),
         [stopwatch]
     );
 
     useEffect(() => {
-        let interval;
-        if (isRunning) {
-            const intervalTime = Math.floor(Math.random() * 10);
-            interval = setInterval(() => {
-                setTime(oldTime => oldTime + intervalTime);
-            }, intervalTime);
-        } else {
+        if (!isRunning) {
             setTime(0);
+            return () => {};
         }
-
+    
+        const interval = setInterval(() => {
+            const { toggles } = stopwatch;
+            setTime(Date.now() - toggles[toggles.length - 1]);
+        }, 14);
+    
         return () => clearInterval(interval);
     }, [isRunning]);
 
