@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { toast } from 'react-toast';
+import { useHistory } from "react-router-dom";
 import { createStopwatch } from '../services';
 import { StopwatchButton } from '../components';
-import { useHistory } from "react-router-dom";
 
 export default function CreateNewStopwatch() {
     const history = useHistory();

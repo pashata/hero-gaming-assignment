@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@emotion/core": "^10.0.28",
+    "@emotion/react": "^11.14.0",
     "@emotion/styled": "^10.0.27",
     "@kinday/njv": "^0.4.0",
     "body-parser": "^1.19.0",

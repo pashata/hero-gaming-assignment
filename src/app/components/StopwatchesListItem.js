@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { FiPause } from "react-icons/fi";
 import { ListItem, StyledLink } from './styled';
-import { useCounter } from '../hooks';
+import { useCounter, useListPageContext } from '../hooks';
 import DeleteStopwatch from './DeleteStopwatch';
 import { formatTimestamp } from '../utils';
 
@@ -11,6 +11,7 @@ import { formatTimestamp } from '../utils';
  */
 export default function StopwatchesListItem({ stopwatch }) {
     const { time, isRunning } = useCounter(stopwatch);
+    const { fetchHandler } = useListPageContext();
 
     return (
         <ListItem isFaded={isRunning}>
@@ -18,7 +19,10 @@ export default function StopwatchesListItem({ stopwatch }) {
                 {formatTimestamp(time)}
                 {isRunning && <FiPause />}
             </StyledLink>
-            <DeleteStopwatch id={stopwatch.__id} />
+            <DeleteStopwatch
+                id={stopwatch.__id}
+                onDelete={() => fetchHandler(true)}
+            />
         </ListItem>
     )
 }

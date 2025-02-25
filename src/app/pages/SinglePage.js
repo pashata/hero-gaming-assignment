@@ -2,7 +2,7 @@
 import styled from '@emotion/styled';
 import { FiArrowLeft } from "react-icons/fi";
 import * as React from 'react'
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import {
   MainCounter,
   AppWrapper,
@@ -10,7 +10,8 @@ import {
   StopwatchLaps,
   StopwatchButton,
   StyledLink,
-  StopwatchLoader
+  StopwatchLoader,
+  DeleteStopwatch
 } from '../components';
 import { useSingleStopwatch, useCounter } from '../hooks';
 
@@ -23,6 +24,7 @@ const TogglesWrapper = styled.div`
 
 export default function SinglePage() {
   const { id } = useParams();
+  const history = useHistory();
   const {
     data,
     isLoading,
@@ -30,6 +32,10 @@ export default function SinglePage() {
     addLapHandler
   } = useSingleStopwatch(id);
   const { time, isRunning } = useCounter(data);
+
+  const onDeleteHandler = () => {
+    history.push('/');
+  }
 
   return (
     <AppWrapper>
@@ -52,6 +58,7 @@ export default function SinglePage() {
           <AppMainArea>
             <StopwatchLaps stopwatch={data} />
           </AppMainArea>
+          <DeleteStopwatch id={id} size='large' onDelete={onDeleteHandler} />
         </>
       )}
       {isLoading && (
