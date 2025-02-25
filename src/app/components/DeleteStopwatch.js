@@ -1,21 +1,9 @@
 import React, { useCallback } from 'react';
 import { toast } from 'react-toast';
-/** @jsx jsx */
-import { jsx } from '@emotion/core'
 import styled from '@emotion/styled';
-import { keyframes, css } from '@emotion/react';
-import { FiTrash2, FiCheck, FiX, FiLoader } from "react-icons/fi";
+import { FiTrash2, FiCheck, FiX } from "react-icons/fi";
 import { deleteStopwatch } from '../services';
-import { ButtonIcon } from '../components';
-
-const spinAnimation = keyframes`
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-`;
+import { ButtonIcon, SpinningLoaderIcon } from '../components';
 
 /**
  * @param {Object} props
@@ -59,7 +47,7 @@ export default function DeleteStopwatch({ id, onDelete, size = 'medium' }) {
 
     return (
         <DeleteStopwatchWrapper size={size}>
-            {isDeleting && <FiLoader css={css`animation: ${spinAnimation} 1s linear infinite;`} />}
+            {isDeleting && <SpinningLoaderIcon />}
             {shouldShowTrashIcon && (
                 <ButtonIcon theme="danger" onClick={toggleConfirm}>
                     <FiTrash2 />      
