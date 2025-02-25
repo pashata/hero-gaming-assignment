@@ -14,7 +14,7 @@ function ListPage() {
     const {
         isLoading,
         hasMorePages,
-        fetchHandler
+        loadMore
     } = useListPageContext();
 
     if (isLoading) {
@@ -32,7 +32,7 @@ function ListPage() {
                 <StopwatchesList />
             </AppMainArea>
             {hasMorePages && (
-                <StopwatchButton onClick={fetchHandler}>
+                <StopwatchButton onClick={loadMore}>
                     More
                 </StopwatchButton>
             )}

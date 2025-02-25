@@ -1,4 +1,4 @@
-import React, { createContext, useState, useRef, useEffect } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 import { toast } from 'react-toast';
 import { fetchStopwatches } from '../services';
 
@@ -8,17 +8,14 @@ const ListPageProvider = ({ children }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [currentStopwatches, setCurrentStopwatches] = useState([]);
     const [hasMorePages, setHasMorePages] = useState(true);
-    
-    const currentPage = useRef(0);
+    const [currentPage, setCurrentPage] = useState(1);
 
-    const fetchHandler = (refetch = false) => {
-        const newPage = refetch ? currentPage.current : currentPage.current + 1
+    const fetchHandler = () => {
         setIsLoading(true);
 
-        fetchStopwatches(newPage)
+        fetchStopwatches(currentPage)
             .then(({ meta, result }) => {
-                setCurrentStopwatches(result);
-                currentPage.current = meta.currentPage;
+                setCurrentStopwatches(oldStopwatches => [...oldStopwatches, ...result]);
                 setHasMorePages(meta.currentPage < meta.totalPages);
             })
             .catch((error) => {
@@ -30,7 +27,17 @@ const ListPageProvider = ({ children }) => {
             });
     };
 
-    useEffect(fetchHandler, []);
+    const loadMore = () => {
+        if (hasMorePages) {
+            setCurrentPage(previousPage => previousPage + 1);
+        }
+    }
+
+    const removeSwatch = (id) => {
+        setCurrentStopwatches((oldStopwatches) => oldStopwatches.filter(stopwatch => stopwatch.__id !== id));
+    }
+
+    useEffect(fetchHandler, [currentPage]);
 
     return (
         <ListPageContext.Provider
@@ -38,7 +45,8 @@ const ListPageProvider = ({ children }) => {
                 isLoading,
                 stopwatches: currentStopwatches,
                 hasMorePages,
-                fetchHandler
+                removeSwatch,
+                loadMore
             }}
         >
             {children}

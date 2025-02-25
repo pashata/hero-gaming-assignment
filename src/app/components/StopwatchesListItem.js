@@ -11,7 +11,7 @@ import { formatTimestamp } from '../utils';
  */
 export default function StopwatchesListItem({ stopwatch }) {
     const { time, isRunning } = useCounter(stopwatch);
-    const { fetchHandler } = useListPageContext();
+    const { removeSwatch } = useListPageContext();
 
     return (
         <ListItem isFaded={isRunning}>
@@ -21,7 +21,7 @@ export default function StopwatchesListItem({ stopwatch }) {
             </StyledLink>
             <DeleteStopwatch
                 id={stopwatch.__id}
-                onDelete={() => fetchHandler(true)}
+                onDelete={() => removeSwatch(stopwatch.__id)}
             />
         </ListItem>
     )
