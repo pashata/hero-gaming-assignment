@@ -14,18 +14,18 @@ function useCounter(stopwatch) {
     );
 
     useEffect(() => {
-        if (!isRunning) {
-            setTime(0);
-            return () => {};
-        }
-    
+        setTime(0);
+
+        if (!isRunning) return;
+
+        const startTimestamp = Date.now();
+
         const interval = setInterval(() => {
-            const { toggles, started } = stopwatch;
-            setTime(Date.now() - (toggles[toggles.length - 1] ?? started));
+            setTime(Date.now() - startTimestamp);
         }, 14);
-    
+
         return () => clearInterval(interval);
-    }, [isRunning]);
+    }, [stopwatch]);
 
     return {
         time: totalTime+time,

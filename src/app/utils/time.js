@@ -46,7 +46,6 @@ function calculateStopwatchTime(stopwatch) {
 
   return {
     totalTime,
-    totalTimeDisplay: formatTimestamp(totalTime),
     isRunning
   };
 }

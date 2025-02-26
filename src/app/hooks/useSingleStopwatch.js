@@ -47,7 +47,7 @@ function useSingleStopwatch(id) {
         updateData('laps', timestamp);
 
         addLap(id, timestamp)
-          .catch(() => {
+          .catch((error) => {
             toast.error(error);
             updateData('laps', timestamp, true);
           })
